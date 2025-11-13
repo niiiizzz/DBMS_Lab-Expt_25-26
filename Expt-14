@@ -1,0 +1,57 @@
+#Query
+UPDATE EMPLOYEES
+SET Salary = Salary + 500
+WHERE Department_id = 10;
+
+COMMIT;
+
+#Query
+UPDATE EMPLOYEES
+SET Salary = Salary - 500
+WHERE Department_id = 10;
+
+ROLLBACK;
+
+
+#Query
+UPDATE EMPLOYEES SET Salary = Salary + 100 WHERE Employee_id = 101;
+SAVEPOINT sp1;
+
+UPDATE EMPLOYEES SET Salary = Salary + 200 WHERE Employee_id = 102;
+SAVEPOINT sp2;
+
+ROLLBACK TO sp1; -- Undoes changes after sp1 but keeps changes before it
+COMMIT;
+
+
+#Query
+CREATE TABLE test_txn (
+  id NUMBER,
+  name VARCHAR2(20)
+);
+-- This CREATE statement is auto-committed
+
+
+#Query
+SELECT * FROM EMPLOYEES
+WHERE Department_id = 10
+FOR UPDATE;
+
+
+#Query
+SELECT * FROM EMPLOYEES
+WHERE Department_id = 10
+FOR UPDATE NOWAIT;
+
+
+#Query
+BEGIN
+  UPDATE EMPLOYEES SET Salary = Salary + 100 WHERE Employee_id = 101;
+  SAVEPOINT before_bonus;
+
+  UPDATE EMPLOYEES SET Salary = Salary + 500 WHERE Employee_id = 102;
+
+  ROLLBACK TO before_bonus;
+
+  COMMIT;
+END;
