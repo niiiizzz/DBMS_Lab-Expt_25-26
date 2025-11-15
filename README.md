@@ -1,1 +1,2 @@
-# DBMS_Lab-Expt_25-26
+# DBMS LAB 25 / 26 - 3rd Semester
+# SQL, PL/SQL and MongoDB
